@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/* Tailwind CSS v4 selector-based dark mode definition */
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-main: #F8FAFC;
+    --surface-main: #FFFFFF;
+    --surface-card: #FFFFFF;
+    --primary: #2563EB;
+    --secondary: #7C3AED;
+    --accent: #06B6D4;
+    --text-main: #0F172A;
+    --text-muted: #475569;
+    --border-color: rgba(15, 23, 42, 0.12);
+    --glass-bg: rgba(255, 255, 255, 0.90);
+    --glass-border: rgba(15, 23, 42, 0.10);
+    --shadow-soft: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+  }
+
+  .dark {
+    --bg-main: #050816;
+    --surface-main: #0B1120;
+    --surface-card: #0F172A;
+    --primary: #60A5FA;
+    --secondary: #A78BFA;
+    --accent: #22D3EE;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --border-color: rgba(255, 255, 255, 0.10);
+    --glass-bg: rgba(11, 17, 32, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+html, body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark, html.dark body {
+  background-color: #050816 !important;
+  color: #F8FAFC !important;
+}
+
+html:not(.dark), html:not(.dark) body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Monospace font utility for technical labels */
+.font-mono-tech {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: #94A3B8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Glassmorphism styling */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Glowing Border Effect */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Tech Glitch Badge Effect */
+@keyframes glitch-anim {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-2px, -2px) }
+  60% { transform: translate(2px, 2px) }
+  80% { transform: translate(2px, -2px) }
+  100% { transform: translate(0) }
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+.glitch-text:hover {
+  animation: glitch-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* Pulsing aura ring */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 0.4; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 4s ease-in-out infinite;
+}
+
+/* Orbit rotation animation */
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-orbit {
+  animation: orbit-spin 25s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbit-spin 35s linear infinite reverse;
+}
